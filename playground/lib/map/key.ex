@@ -9,23 +9,18 @@ defmodule Map.Key do
   %{ "method" => "GET", "path" => "/wildthings" }
   """
 
-  @doc """
-  Pattern match :key=>"value"
-  with key: "value"
-  """
   def play_good do
     %{:firstname => "Erik", :lastname => "Uus"}
     |> pattern_match
   end
 
-  @doc """
-  Pattern match "key" => "value"
-  with key: "value"
-  """
   def play_bad do
     %{"firstname" => "Erik", "lastname" => "Uus"}
     |> pattern_match
   end
+
+  @spec pattern_match(map()) :: map() | String.t()
+  def pattern_match(arg)
 
   def pattern_match(%{firstname: "Erik", lastname: "Uus"} = map) do
     map

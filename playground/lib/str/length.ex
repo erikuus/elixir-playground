@@ -14,6 +14,7 @@ defmodule Str.Length do
     get_sizes("õäüö")
   end
 
+  @spec get_sizes(String.t()) :: String.t()
   def get_sizes(str) do
     "#{String.length(str)}  #{byte_size(str)}"
   end
