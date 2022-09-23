@@ -28,9 +28,18 @@ defmodule PatternMatch.Map do
   end
 
   @doc """
-  Returns map as a result of successful pattern match with wildcard.
+  Returns map as a result of successful pattern match with map
+  that has less elements.
   """
   def play_good4 do
+    a = %{"firstname" => "Erik", "lastname" => "Uus"}
+    %{"firstname" => "Erik"} = a
+  end
+
+  @doc """
+  Returns map as a result of successful pattern match with wildcard.
+  """
+  def play_good5 do
     a = %{firstname: "Erik", lastname: "Uus"}
     %{firstname: "Erik", lastname: _} = a
   end
@@ -38,7 +47,7 @@ defmodule PatternMatch.Map do
   @doc """
   Returns "Erik" as a result of successful pattern match with assignment.
   """
-  def play_good5 do
+  def play_good6 do
     a = %{firstname: "Erik", lastname: "Uus"}
     %{firstname: name, lastname: "Uus"} = a
     name
@@ -58,7 +67,8 @@ defmodule PatternMatch.Map do
   end
 
   @doc """
-  Returns nil as a result of failed pattern match.
+  Returns nil as a result of failed pattern match with a map
+  that has more elements
   """
   def play_bad2 do
     a = %{firstname: "Erik", lastname: "Uus"}
@@ -71,7 +81,8 @@ defmodule PatternMatch.Map do
   end
 
   @doc """
-  Returns nil as a result of failed pattern match.
+  Returns nil as a result of failed pattern match
+  because of matching atom keys with string keys.
   """
   def play_bad3 do
     a = %{firstname: "Erik", lastname: "Uus"}
@@ -89,6 +100,7 @@ IO.inspect(PatternMatch.Map.play_good2())
 IO.inspect(PatternMatch.Map.play_good3())
 IO.inspect(PatternMatch.Map.play_good4())
 IO.inspect(PatternMatch.Map.play_good5())
+IO.inspect(PatternMatch.Map.play_good6())
 IO.inspect(PatternMatch.Map.play_bad())
 IO.inspect(PatternMatch.Map.play_bad2())
 IO.inspect(PatternMatch.Map.play_bad3())
