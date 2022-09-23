@@ -23,7 +23,7 @@ defmodule Map.Get do
   end
 
   @doc """
-  Returns fullname using atoms dot notation
+  Returns fullname using dot notation
   """
   def play_good3 do
     a = %{:firstname => "Erik", :lastname => "Uus"}
