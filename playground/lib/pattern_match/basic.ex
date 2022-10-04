@@ -32,6 +32,7 @@ defmodule PatternMatch.Basic do
     a = 1
 
     try do
+      # same as 2 = a
       ^a = 2
     rescue
       MatchError -> "#{a} is not 2"
