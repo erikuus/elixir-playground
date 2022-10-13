@@ -1,6 +1,6 @@
 defmodule PatternMatch.Basic do
   @moduledoc """
-  This module provides basic examples of using pattern matching .
+  This module provides basic examples of using pattern matching.
   """
 
   @doc """

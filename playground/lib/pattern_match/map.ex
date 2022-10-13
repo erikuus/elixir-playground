@@ -30,6 +30,9 @@ defmodule PatternMatch.Map do
   @doc """
   Returns map as a result of successful pattern match with map
   that has less elements.
+
+  NOTE! Maps and structures match if pattern has
+  less items or no items at all, but not lists
   """
   def play_good4 do
     a = %{"firstname" => "Erik", "lastname" => "Uus"}
@@ -37,9 +40,18 @@ defmodule PatternMatch.Map do
   end
 
   @doc """
-  Returns map as a result of successful pattern match with wildcard.
+  Returns map as a result of successful pattern match with map
+  that has no elements.
   """
   def play_good5 do
+    a = %{"firstname" => "Erik", "lastname" => "Uus"}
+    %{} = a
+  end
+
+  @doc """
+  Returns map as a result of successful pattern match with wildcard.
+  """
+  def play_good6 do
     a = %{firstname: "Erik", lastname: "Uus"}
     %{firstname: "Erik", lastname: _} = a
   end
@@ -47,7 +59,7 @@ defmodule PatternMatch.Map do
   @doc """
   Returns "Erik" as a result of successful pattern match with assignment.
   """
-  def play_good6 do
+  def play_good7 do
     a = %{firstname: "Erik", lastname: "Uus"}
     %{firstname: name, lastname: "Uus"} = a
     name
@@ -93,6 +105,22 @@ defmodule PatternMatch.Map do
       MatchError -> nil
     end
   end
+
+  @doc """
+  Returns nil as a result of failed pattern match
+
+  NOTE! When using struct this will match, as struct
+  has all elements present.
+  """
+  def play_bad4 do
+    a = %{lastname: "Uus"}
+
+    try do
+      %{firstname: name} = a
+    rescue
+      MatchError -> nil
+    end
+  end
 end
 
 IO.inspect(PatternMatch.Map.play_good())
@@ -101,6 +129,8 @@ IO.inspect(PatternMatch.Map.play_good3())
 IO.inspect(PatternMatch.Map.play_good4())
 IO.inspect(PatternMatch.Map.play_good5())
 IO.inspect(PatternMatch.Map.play_good6())
+IO.inspect(PatternMatch.Map.play_good7())
 IO.inspect(PatternMatch.Map.play_bad())
 IO.inspect(PatternMatch.Map.play_bad2())
 IO.inspect(PatternMatch.Map.play_bad3())
+IO.inspect(PatternMatch.Map.play_bad4())

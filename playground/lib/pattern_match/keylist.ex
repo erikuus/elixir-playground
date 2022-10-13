@@ -56,6 +56,9 @@ defmodule PatternMatch.Keylist do
 
   @doc """
   Returns nil as a result of failed pattern match.
+
+  NOTE! Maps and structures match if pattern has
+  less items or no items at all, but not lists
   """
   def play_bad3 do
     a = [a: 1, b: 2, c: 3]
