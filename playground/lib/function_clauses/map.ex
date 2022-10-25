@@ -36,7 +36,7 @@ defmodule FunctionClauses.Map do
   Returns "pontu is a dog" as a result of pattern match.
 
   NOTE! Maps and structures match if pattern has
-  less items or no items at all, but not lists.
+  less items or no items at all.
   """
   def play_good5 do
     f(%{first: "pontu", second: "dingo", third: "muri"})
@@ -51,6 +51,13 @@ defmodule FunctionClauses.Map do
   """
   def play_good6 do
     f(%{second: "pet"})
+  end
+
+  @doc """
+  Returns "b comes after a" as a result of pattern match.
+  """
+  def play_good7 do
+    f(%{second: "ab"})
   end
 
   defp f(%{first: a, second: 1}) do
@@ -69,6 +76,10 @@ defmodule FunctionClauses.Map do
     "#{a} is a dog"
   end
 
+  defp f(%{second: "a" <> b}) do
+    "#{b} comes after a"
+  end
+
   defp f(%{second: a}) do
     "dog is a #{a}"
   end
@@ -80,3 +91,4 @@ IO.inspect(FunctionClauses.Map.play_good3())
 IO.inspect(FunctionClauses.Map.play_good4())
 IO.inspect(FunctionClauses.Map.play_good5())
 IO.inspect(FunctionClauses.Map.play_good6())
+IO.inspect(FunctionClauses.Map.play_good7())

@@ -29,7 +29,25 @@ defmodule PatternMatch.Tuple do
   end
 
   @doc """
-  Returns nil as a result of failed pattern match.
+  Returns "1" as a result of successful pattern match with assignment.
+  """
+  def play_good4 do
+    a = {:ok, "one/1", "2"}
+    {:ok, "one/" <> b, "2"} = a
+    b
+  end
+
+  @doc """
+  Returns %{one: 1, two: 2} as a result of successful pattern match with assignment.
+  """
+  def play_good5 do
+    a = {:ok, %{one: 1, two: 2}}
+    {:ok, %{} = b} = a
+    b
+  end
+
+  @doc """
+  Returns "Match Error: :ok is not :error" as a result of failed pattern match.
   """
   def play_bad do
     a = {:ok, 1, "2"}
@@ -37,12 +55,12 @@ defmodule PatternMatch.Tuple do
     try do
       {:error, 1, "2"} = a
     rescue
-      MatchError -> nil
+      MatchError -> "Match Error: :ok is not :error"
     end
   end
 
   @doc """
-  Returns nil as a result of failed pattern match.
+  Returns "Match error: length is not same" as a result of failed pattern match.
   """
   def play_bad2 do
     a = {:ok, 1, "2"}
@@ -50,7 +68,7 @@ defmodule PatternMatch.Tuple do
     try do
       {:ok, 1} = a
     rescue
-      MatchError -> nil
+      MatchError -> "Match error: length is not same"
     end
   end
 end
@@ -58,5 +76,7 @@ end
 IO.inspect(PatternMatch.Tuple.play_good())
 IO.inspect(PatternMatch.Tuple.play_good2())
 IO.inspect(PatternMatch.Tuple.play_good3())
+IO.inspect(PatternMatch.Tuple.play_good4())
+IO.inspect(PatternMatch.Tuple.play_good5())
 IO.inspect(PatternMatch.Tuple.play_bad())
 IO.inspect(PatternMatch.Tuple.play_bad2())

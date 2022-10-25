@@ -2,6 +2,14 @@ defmodule FunctionClauses.Basic do
   @moduledoc """
   This module provides basic examples of using pattern matching
   with function clauses.
+
+  Note that this:
+
+    f("pontu", "dingo", "muri")
+
+  would not match any given function clause, because
+  arguments unlike maps and structures match only if
+  there are same number of arguments.
   """
 
   @doc """
@@ -32,12 +40,23 @@ defmodule FunctionClauses.Basic do
     f("dog")
   end
 
+  @doc """
+  Returns "four cats on the roof" as a result of pattern match.
+  """
+  def play_good5 do
+    f("4/cats", "on the roof")
+  end
+
   defp f(a, 1) do
     "#{a} is one"
   end
 
   defp f(a, 2) do
     "#{a} is two"
+  end
+
+  defp f("4/" <> a, b) do
+    "four #{a} #{b}"
   end
 
   defp f(a, b) do
@@ -53,3 +72,4 @@ IO.inspect(FunctionClauses.Basic.play_good())
 IO.inspect(FunctionClauses.Basic.play_good2())
 IO.inspect(FunctionClauses.Basic.play_good3())
 IO.inspect(FunctionClauses.Basic.play_good4())
+IO.inspect(FunctionClauses.Basic.play_good5())

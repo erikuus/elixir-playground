@@ -4,6 +4,9 @@ defmodule PatternMatch.Struct do
   """
 
   defmodule Fullname do
+    @moduledoc """
+    This module provides structure for examples.
+    """
     defstruct firstname: "", lastname: "", middlename: ""
   end
 
@@ -71,19 +74,28 @@ defmodule PatternMatch.Struct do
   end
 
   @doc """
+  Returns "Erik" as a result of successful pattern match with assignment.
+  """
+  def play_good8 do
+    a = %Fullname{firstname: "My name is Erik", lastname: "Uus"}
+    %Fullname{firstname: "My name is " <> name, lastname: "Uus"} = a
+    name
+  end
+
+  @doc """
   Returns "" as a result of successful pattern match with assignment.
 
   NOTE! When using map this will not match, but as struct
   has all elements present, it will match.
   """
-  def play_good8 do
+  def play_good9 do
     a = %Fullname{lastname: "Uus"}
     %Fullname{firstname: name} = a
     name
   end
 
   @doc """
-  Returns nil as a result of failed pattern match.
+  Returns "Match Error: Uus is not Uks" as a result of failed pattern match.
   """
   def play_bad do
     a = %Fullname{firstname: "Erik", lastname: "Uus"}
@@ -91,12 +103,12 @@ defmodule PatternMatch.Struct do
     try do
       %Fullname{firstname: "Erik", lastname: "Uks"} = a
     rescue
-      MatchError -> nil
+      MatchError -> "Match Error: Uus is not Uks"
     end
   end
 
   @doc """
-  Returns nil as a result of failed pattern match with map
+  Returns "Match Error: birthday key is missing" as a result of failed pattern match with map
   that has more elements.
   """
   def play_bad2 do
@@ -105,13 +117,13 @@ defmodule PatternMatch.Struct do
     try do
       %{firstname: "Erik", lastname: "Uus", birthday: "1973-07-30"} = a
     rescue
-      MatchError -> nil
+      MatchError -> "Match Error: birthday key is missing"
     end
   end
 
   @doc """
-  Returns nil as a result of failed pattern match.
-  Structures are maps, but maps are not structures
+  Returns "Match Error: maps are not structures" as a result of failed
+  pattern match. Structures are maps, but maps are not structures.
   """
   def play_bad3 do
     a = %{firstname: "Erik", lastname: "Uus"}
@@ -119,7 +131,7 @@ defmodule PatternMatch.Struct do
     try do
       %Fullname{firstname: "Erik", lastname: "Uus"} = a
     rescue
-      MatchError -> nil
+      MatchError -> "Match Error: maps are not structures"
     end
   end
 end
@@ -132,6 +144,7 @@ IO.inspect(PatternMatch.Struct.play_good5())
 IO.inspect(PatternMatch.Struct.play_good6())
 IO.inspect(PatternMatch.Struct.play_good7())
 IO.inspect(PatternMatch.Struct.play_good8())
+IO.inspect(PatternMatch.Struct.play_good9())
 IO.inspect(PatternMatch.Struct.play_bad())
 IO.inspect(PatternMatch.Struct.play_bad2())
 IO.inspect(PatternMatch.Struct.play_bad3())

@@ -5,6 +5,9 @@ defmodule FunctionClauses.Struct do
   """
 
   defmodule Word do
+    @moduledoc """
+    This module provides structure for examples.
+    """
     defstruct first: "", second: "", third: ""
   end
 
@@ -40,7 +43,7 @@ defmodule FunctionClauses.Struct do
   Returns "pontu is a dog" as a result of pattern match.
 
   NOTE! Maps and structures match if pattern has
-  less items or no items at all, but not lists.
+  less items or no items at all.
   """
   def play_good5 do
     f(%Word{first: "pontu", second: "dingo", third: "muri"})
@@ -51,10 +54,17 @@ defmodule FunctionClauses.Struct do
 
   NOTE! When using map this returns "dog is a pet",
   but as struct has all elements present, it will
-  match penultimate clause. 
+  match penultimate clause.
   """
   def play_good6 do
     f(%Word{second: "pet"})
+  end
+
+  @doc """
+  Returns "b comes after a" as a result of pattern match.
+  """
+  def play_good7 do
+    f(%Word{second: "ab"})
   end
 
   defp f(%Word{first: a, second: 1}) do
@@ -67,6 +77,10 @@ defmodule FunctionClauses.Struct do
 
   defp f(%Word{first: "eagle", second: a}) do
     "eagel is a #{a}"
+  end
+
+  defp f(%Word{second: "a" <> b}) do
+    "#{b} comes after a"
   end
 
   defp f(%Word{first: a}) do
@@ -84,3 +98,4 @@ IO.inspect(FunctionClauses.Struct.play_good3())
 IO.inspect(FunctionClauses.Struct.play_good4())
 IO.inspect(FunctionClauses.Struct.play_good5())
 IO.inspect(FunctionClauses.Struct.play_good6())
+IO.inspect(FunctionClauses.Struct.play_good7())
